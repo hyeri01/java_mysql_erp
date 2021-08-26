@@ -1,0 +1,2 @@
+SELECT code, name
+  from title;
