@@ -39,7 +39,7 @@ public class TitleDaoImpl implements TitleDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null; //size가 0이거나 그렇지 않은 경우
+		return null; // size가 0이거나 그렇지 않은 경우
 
 	}
 
@@ -51,27 +51,27 @@ public class TitleDaoImpl implements TitleDao {
 
 	@Override
 	public Title selectTitleByCode(Title title) {
-		String sql = "select code, name from title where code = 1;";
-//		Title tt = new Title();
-//
-//		try (Connection con = JdbcUtil.getConnection();
-//				PreparedStatement pstmt = con.prepareStatement(sql);
-//				ResultSet rs = pstmt.executeQuery()) {
-//
-//			while (rs.next()) {
-//				tt.getCode();
-//			}
-//			return tt;
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		return null; //size가 0이거나 그렇지 않은 경우
+		String sql = "select code, name from title where code = ?;";
+		try (Connection con = JdbcUtil.getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, title.getCode());
+			System.out.println("pstmt >> " + pstmt);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					return getTitle(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 	@Override
 	public int insertTitle(Title title) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

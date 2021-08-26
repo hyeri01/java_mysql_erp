@@ -13,9 +13,9 @@ import java_mysql_erp.dao.impl.TitleDaoImpl;
 import java_mysql_erp.dto.Title;
 
 public class TitleDaoTest {
-	
+
 	private TitleDao dao;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		dao = TitleDaoImpl.getInstance();
@@ -23,23 +23,28 @@ public class TitleDaoTest {
 
 	@After
 	public void tearDown() throws Exception {
-		dao= null;
+		dao = null;
 	}
 
 	@Test
 	public void testSelectTitleByAll() {
 		System.out.println("selectTitleByCode()");
-
+		ArrayList<Title> list = dao.selectTitleByAll();
+		Assert.assertNotEquals(0, list.size());
+		list.stream().forEach(s -> System.out.println(s));
 	}
 
 	@Test
 	public void testSelectTitleByCode() {
-		System.out.println("testSelectTitleByAll()");
+		System.out.println("testSelectTitleByCode()");
+		Title selectTitle = dao.selectTitleByCode(new Title(5));
+		Assert.assertNotNull(selectTitle);
+		System.out.println(selectTitle);
 	}
 
 	@Test
 	public void testInsertTitle() {
-		fail("Not yet implemented");
+		System.out.println("testInsertTitle()");
 	}
 
 	@Test
