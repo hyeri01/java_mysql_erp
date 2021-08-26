@@ -45,6 +45,9 @@ public class TitleDaoTest {
 	@Test
 	public void testInsertTitle() {
 		System.out.println("testInsertTitle()");
+		Title newTitle = new Title(6, "인턴");
+		int res = dao.insertTitle(newTitle);
+		Assert.assertEquals(1, res); // res가 1이라면 성공
 	}
 
 	@Test

@@ -52,8 +52,7 @@ public class TitleDaoImpl implements TitleDao {
 	@Override
 	public Title selectTitleByCode(Title title) {
 		String sql = "select code, name from title where code = ?;";
-		try (Connection con = JdbcUtil.getConnection(); 
-			PreparedStatement pstmt = con.prepareStatement(sql);) {
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, title.getCode());
 			System.out.println("pstmt >> " + pstmt);
 
@@ -72,6 +71,17 @@ public class TitleDaoImpl implements TitleDao {
 
 	@Override
 	public int insertTitle(Title title) {
+		String sql = "INSERT into title values (?, ?);";
+		try (Connection con = JdbcUtil.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setInt(1, title.getCode());
+			pstmt.setString(2, title.getName());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
